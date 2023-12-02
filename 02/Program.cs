@@ -5,15 +5,15 @@ while (reader.Peek() >= 0)
 {
     var line = reader.ReadLine() ?? "";
     var gameId = line.Split(':')[0][5..];
-    var items = line.Split(':')[1].Split(';');
+    var gameSets = line.Split(':')[1].Split(';');
     var gameItems = new Dictionary<string, int>();
-    foreach (var item in items)
+    foreach (var set in gameSets)
     {
-        var sets = item.Split(',');
-        foreach (var set in sets)
+        var items = set.Split(',');
+        foreach (var item in items)
         {
-            var colour = set.Trim().Split(' ')[1];
-            var count = int.Parse(set.Trim().Split(' ')[0]);
+            var colour = item.Trim().Split(' ')[1];
+            var count = int.Parse(item.Trim().Split(' ')[0]);
             if (gameItems.ContainsKey(colour))
             {
                 gameItems[colour] = Math.Max(gameItems[colour], count);
