@@ -6,7 +6,11 @@ while (reader.Peek() >= 0)
     var line = reader.ReadLine() ?? "";
     var gameId = line.Split(':')[0][5..];
     var gameSets = line.Split(':')[1].Split(';');
-    var gameItems = new Dictionary<string, int>();
+    var gameItems = new Dictionary<string, int>() {
+        { "red", 0 },
+        { "green", 0 },
+        { "blue", 0 }
+    };
     foreach (var set in gameSets)
     {
         var items = set.Split(',');
@@ -14,19 +18,12 @@ while (reader.Peek() >= 0)
         {
             var colour = item.Trim().Split(' ')[1];
             var count = int.Parse(item.Trim().Split(' ')[0]);
-            if (gameItems.ContainsKey(colour))
-            {
-                gameItems[colour] = Math.Max(gameItems[colour], count);
-            }
-            else
-            {
-                gameItems.Add(colour, count);
-            }
+            gameItems[colour] = Math.Max(gameItems[colour], count);
         }
     }
-    gameItems.TryGetValue("red", out int red);
-    gameItems.TryGetValue("green", out int green);
-    gameItems.TryGetValue("blue", out int blue);
+    var red = gameItems["red"];
+    var green = gameItems["green"];
+    var blue = gameItems["blue"];
 
     gamePower += red * green * blue;
 
