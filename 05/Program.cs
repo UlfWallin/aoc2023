@@ -38,7 +38,15 @@ foreach(var seed in seeds) {
     low = Math.Min(location, low);
     Console.WriteLine($"Seed {seed}: {location}");
 }
-Console.WriteLine($"Low = {low}");
+Console.WriteLine($"Part One = {low}");
+
+for(var seed = 0; seed < seeds.Count - 1; seed += 2) {
+    (long seed, long length) range = (seeds[seed], seeds[seed + 1]);
+    long newSeed = 0;
+    foreach(var map in stupidMap) {
+        newSeed = GetDestinationInRange(range, map.Value);
+    }
+}
 
 long GetDestination(long seed, IList<string> lines) {
     var destination = seed;
@@ -53,6 +61,18 @@ long GetDestination(long seed, IList<string> lines) {
             destination = destStart + offset;
             break;
         }
+    }
+    return destination;
+}
+
+long GetDestinationInRange((long seed,long length) range, IList<string> lines) {
+    var destination = range.seed;
+    foreach(var line in lines) {
+        var map  = nre.Matches(line).Select(n => long.Parse(n.Value)).ToArray();
+        var destStart = map[0];
+        var srcStart = map[1];
+        var length = map[2];
+        
     }
     return destination;
 }
