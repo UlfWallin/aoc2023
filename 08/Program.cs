@@ -1,9 +1,7 @@
-﻿using System.Globalization;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 const string path = "input.txt";
-Regex regex = new Regex(@"\w+");
+Regex regex = new(@"\w+");
 
 Dictionary<string, (string Left, string Right)> nodes = [];
 const string TARGET = "ZZZ";
@@ -36,6 +34,13 @@ Console.WriteLine($"Part one: {steps}");
 steps = 0;
 var currNodes = nodes.Keys.Where(k => k[2] == 'A').ToArray();
 var len = currNodes.Length;
+
+var follow = (0L, currNodes[0]);
+var c = 0L;
+for(int i = 0; i < 5; i++) {
+    follow = FollowPathToZ(follow.Item2);
+    c += follow.Item1;
+}
 
 // TODO: Didn't think, doesn't work
 var found = true;
