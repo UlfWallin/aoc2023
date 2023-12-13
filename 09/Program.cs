@@ -1,9 +1,8 @@
-﻿long sum = 0;
-long sum2 = 0;
+﻿long sum = 0, sum2 = 0;
+Stack<long> stack = [];
 using var reader = new StreamReader("input.txt");
 while (reader.Peek() >= 0)
 {
-    Stack<long> stack = [];
     var line = reader.ReadLine().Split(' ').Select(m => long.Parse(m)).ToArray();
     sum += line[^1];
     stack.Push(line[0]);
@@ -18,5 +17,4 @@ while (reader.Peek() >= 0)
     }
     sum2 += p2;
 }
-Console.WriteLine(sum);
-Console.WriteLine(sum2);
+Console.WriteLine($"Part 1: {sum}\nPart 2: {sum2}");
